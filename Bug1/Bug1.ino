@@ -59,7 +59,7 @@ struct Bug{
 /*
  * create bug1
  */
-struct Bug bug1;
+struct Bug *bug1;
 
 /* 
  *  the setup function runs once when you press reset or power the board
@@ -67,21 +67,21 @@ struct Bug bug1;
  */
 void setup() {
   
-  bug1.name="Bug1";
-  bug1.legCenter = 90; 
-  bug1.frontRightLegForward = 120;
-  bug1.frontLeftLegForward = 60;
-  bug1.frontRightLegTurnRight = 0;
-  bug1.frontRightLegTurnLeft = 0;
-  bug1.frontLeftLegTurnRight =0;
-  bug1.frontLeftLegTurnLeft = 0;  
-  bug1.rearRightLegUp = 70;
-  bug1.rearLeftLegUp = 110;
-  bug1.bugSpeed = 150;
+  bug1->name="Bug1";
+  bug1->legCenter = 90; 
+  bug1->frontRightLegForward = 120;
+  bug1->frontLeftLegForward = 60;
+  bug1->frontRightLegTurnRight = 0;
+  bug1->frontRightLegTurnLeft = 0;
+  bug1->frontLeftLegTurnRight =0;
+  bug1->frontLeftLegTurnLeft = 0;  
+  bug1->rearRightLegUp = 70;
+  bug1->rearLeftLegUp = 110;
+  bug1->bugSpeed = 150;
   
   
-  bug1.frontServo.attach(FRONT_SERVO_DATA_PIN);
-  bug1.rearServo.attach(REAR_SERVO_DATA_PIN);
+  bug1->frontServo.attach(FRONT_SERVO_DATA_PIN);
+  bug1->rearServo.attach(REAR_SERVO_DATA_PIN);
        
   Serial.begin(9600);        
   Serial.flush();
@@ -129,10 +129,10 @@ void loop() {
     
 
 
-void resetLegMovement(struct Bug bug) {
-  bug.frontServo.write(bug.legCenter);
-  bug.rearServo.write(bug.legCenter);
-  Serial.println(" Movement for "+bug.name+" resetted");      
+void resetLegMovement(struct Bug *bug) {
+  bug->frontServo.write(bug->legCenter);
+  bug->rearServo.write(bug->legCenter);
+  Serial.println(" Movement for "+bug->name+" resetted");      
 }
 
     
@@ -198,11 +198,11 @@ void localize(struct Bug bug) {
 }
 
 
-void autoMovement(struct Bug bug){
+void autoMovement(struct Bug *bug){
  if(digitalRead(SWITCHBUTTON) == HIGH){  
-    moveForward(bug);
+    moveForward(*bug);
   }else{    
-    stopBug(bug);
+    stopBug(*bug);
   }
 }  
 
